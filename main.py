@@ -12,6 +12,7 @@ import sys
 import ctypes
 
 
+
 def is_admin():
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()
@@ -110,72 +111,18 @@ import subprocess
 # 32位python程序
 def call_64bit_python(code):
     # 将代码写入临时文件
-    with open("temp.py", "w") as f:
-        f.write(code)
+    # with open("temp.py", "w") as f:
+    #     f.write(code)
 
     # 使用subprocess模块调用64位python解释器执行临时文件
-    subprocess.run(["D://Program Files//Python39/python", "temp.py"])
+    # subprocess.run(["D:\Program Files\Python310\python", "ocr_test.py"])
+    subprocess.Popen("D:\\Program Files\\Python310\\python.exe ocr_test.py")
 
 
 
 def start_action():
-    call_64bit_python(
-        """
-from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 
-import asyncio
-import time
-import easyocr
-
-from pathlib import Path
-
-
-async def startOcr(args):
-    print("start ocr")
-    reader = args[0]
-    path = Path("test.png")
-    while True:
-        if path.exists():
-            print("path exist")
-            ret = reader.readtext(path, detail=0)
-            if ret:
-                print("ret = ", ret)
-            path.unlink()
-        await asyncio.sleep(0.5)
-
-
-async def main():
-    reader = easyocr.Reader(['ch_sim', 'en'], gpu=True)
-    print("main reader")
-    # ret = reader.readtext("test.png", detail=0)
-    # print(ret)
-    # with ThreadPoolExecutor() as pool:
-        # pool.submit(startOcr, reader)
-        # await loop.run_in_executor(pool, startOcr, reader)
-    path = Path("test.png")
-    while True:
-        if path.exists():
-            ret = reader.readtext(str(path), detail=0)
-            if ret:
-                print("ret = ", ret)
-
-            path.unlink()
-        await asyncio.sleep(0.5)
-
-
-async def start():
-    tasks = [main(), ]
-    results = await asyncio.gather(*tasks)
-    print("results", results)
-
-
-asyncio.run(start())
-
-    """)
-
-    if True:
-        return
-
+    call_64bit_python("")
     dm = win32com.client.Dispatch("dm.dmsoft")
     print(dm.ver())
 

@@ -38,7 +38,6 @@ async def main():
                 print("ret = ", ret)
 
             path.unlink()
-        path = Path("test2.bmp")
         await asyncio.sleep(0.5)
 
 
